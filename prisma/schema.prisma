@@ -1,8 +1,217 @@
 
 
-//D:\FixItNow-Backend\prisma\schema.prisma
+// //D:\FixItNow-Backend\prisma\schema.prisma
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+// //////////////////////
+// // ENUMS
+// //////////////////////
+
+// enum UserRole {
+//   ADMIN
+//   CUSTOMER
+//   TECHNICIAN
+// }
+
+// enum TechnicianStatus {
+//   PENDING
+//   APPROVED
+//   REJECTED
+// }
+
+// enum BookingStatus {
+//   PENDING
+//   ACCEPTED
+//   REJECTED
+//   ONGOING
+//   COMPLETED
+//   CANCELLED
+// }
+
+// enum PaymentStatus {
+//   PENDING
+//   PAID
+//   FAILED
+//   REFUNDED
+// }
+
+// //////////////////////
+// // USER MODEL
+// //////////////////////
+
+// model User {
+//   id           String   @id @default(uuid())
+//   name         String
+//   email        String   @unique
+//   password     String
+//   phone        String?
+//   address      String?
+//   role         UserRole @default(CUSTOMER)
+//   profileImage String?
+//   isActive     Boolean  @default(true)
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+
+//   technician Technician?
+
+//   bookings Booking[]
+
+//   reviews Review[]
+// }
+
+// //////////////////////
+// // TECHNICIAN MODEL
+// //////////////////////
+
+// model Technician {
+//   id String @id @default(uuid())
+
+//   userId String @unique
+
+//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+//   skills String[]
+
+//   experience Int?
+
+//   hourlyRate Float?
+
+//   bio String?
+
+//   status TechnicianStatus @default(PENDING)
+
+//   availability Boolean @default(true)
+
+//   bookings Booking[]
+
+//   reviews Review[]
+
+//   createdAt DateTime @default(now())
+
+//   updatedAt DateTime @updatedAt
+// }
+
+// //////////////////////
+// // SERVICE MODEL
+// //////////////////////
+
+// model Service {
+//   id String @id @default(uuid())
+
+//   title String
+
+//   description String
+
+//   category String
+
+//   price Float
+
+//   image String?
+
+//   isActive Boolean @default(true)
+
+//   bookings Booking[]
+
+//   createdAt DateTime @default(now())
+
+//   updatedAt DateTime @updatedAt
+// }
+
+// //////////////////////
+// // BOOKING MODEL
+// //////////////////////
+
+// model Booking {
+//   id String @id @default(uuid())
+
+//   customerId String
+
+//   technicianId String
+
+//   serviceId String
+
+//   bookingDate DateTime
+
+//   address String
+
+//   note String?
+
+//   status BookingStatus @default(PENDING)
+
+//   customer User @relation(fields: [customerId], references: [id])
+
+//   technician Technician @relation(fields: [technicianId], references: [id])
+
+//   service Service @relation(fields: [serviceId], references: [id])
+
+//   payment Payment?
+
+//   review Review?
+
+//   createdAt DateTime @default(now())
+
+//   updatedAt DateTime @updatedAt
+// }
+
+// //////////////////////
+// // PAYMENT MODEL
+// //////////////////////
+
+// model Payment {
+//   id String @id @default(uuid())
+
+//   bookingId String @unique
+
+//   booking Booking @relation(fields: [bookingId], references: [id])
+
+//   transactionId String?
+
+//   amount Float
+
+//   status PaymentStatus @default(PENDING)
+
+//   paymentMethod String?
+
+//   createdAt DateTime @default(now())
+// }
+
+// //////////////////////
+// // REVIEW MODEL
+// //////////////////////
+
+// model Review {
+//   id String @id @default(uuid())
+
+//   bookingId String @unique
+
+//   customerId String
+
+//   technicianId String
+
+//   rating Int
+
+//   comment String?
+
+//   booking Booking @relation(fields: [bookingId], references: [id])
+
+//   customer User @relation(fields: [customerId], references: [id])
+
+//   technician Technician @relation(fields: [technicianId], references: [id])
+
+//   createdAt DateTime @default(now())
+// }
+
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
@@ -61,10 +270,8 @@ model User {
   updatedAt DateTime @updatedAt
 
   technician Technician?
-
-  bookings Booking[]
-
-  reviews Review[]
+  bookings   Booking[]
+  reviews    Review[]
 }
 
 //////////////////////
@@ -72,30 +279,22 @@ model User {
 //////////////////////
 
 model Technician {
-  id String @id @default(uuid())
-
+  id     String @id @default(uuid())
   userId String @unique
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  skills String[]
-
-  experience Int?
-
-  hourlyRate Float?
-
-  bio String?
-
-  status TechnicianStatus @default(PENDING)
-
-  availability Boolean @default(true)
+  skills       String[]
+  experience   Int?
+  hourlyRate   Float?
+  bio          String?
+  status       TechnicianStatus @default(PENDING)
+  availability Boolean          @default(true)
 
   bookings Booking[]
-
-  reviews Review[]
+  reviews  Review[]
 
   createdAt DateTime @default(now())
-
   updatedAt DateTime @updatedAt
 }
 
@@ -104,24 +303,17 @@ model Technician {
 //////////////////////
 
 model Service {
-  id String @id @default(uuid())
-
-  title String
-
+  id          String  @id @default(uuid())
+  title       String
   description String
-
-  category String
-
-  price Float
-
-  image String?
-
-  isActive Boolean @default(true)
+  category    String
+  price       Float
+  image       String?
+  isActive    Boolean @default(true)
 
   bookings Booking[]
 
   createdAt DateTime @default(now())
-
   updatedAt DateTime @updatedAt
 }
 
@@ -130,34 +322,22 @@ model Service {
 //////////////////////
 
 model Booking {
-  id String @id @default(uuid())
-
-  customerId String
-
+  id           String        @id @default(uuid())
+  customerId   String
   technicianId String
+  serviceId    String
+  bookingDate  DateTime
+  address      String
+  note         String?
+  status       BookingStatus @default(PENDING)
 
-  serviceId String
-
-  bookingDate DateTime
-
-  address String
-
-  note String?
-
-  status BookingStatus @default(PENDING)
-
-  customer User @relation(fields: [customerId], references: [id])
-
+  customer   User       @relation(fields: [customerId], references: [id])
   technician Technician @relation(fields: [technicianId], references: [id])
-
-  service Service @relation(fields: [serviceId], references: [id])
-
-  payment Payment?
-
-  review Review?
+  service    Service    @relation(fields: [serviceId], references: [id])
+  payment    Payment?
+  review     Review?
 
   createdAt DateTime @default(now())
-
   updatedAt DateTime @updatedAt
 }
 
@@ -166,18 +346,12 @@ model Booking {
 //////////////////////
 
 model Payment {
-  id String @id @default(uuid())
-
-  bookingId String @unique
-
-  booking Booking @relation(fields: [bookingId], references: [id])
-
+  id            String        @id @default(uuid())
+  bookingId     String        @unique
+  booking       Booking       @relation(fields: [bookingId], references: [id])
   transactionId String?
-
-  amount Float
-
-  status PaymentStatus @default(PENDING)
-
+  amount        Float
+  status        PaymentStatus @default(PENDING)
   paymentMethod String?
 
   createdAt DateTime @default(now())
@@ -188,22 +362,15 @@ model Payment {
 //////////////////////
 
 model Review {
-  id String @id @default(uuid())
-
-  bookingId String @unique
-
-  customerId String
-
+  id           String @id @default(uuid())
+  bookingId    String @unique
+  customerId   String
   technicianId String
+  rating       Int
+  comment      String?
 
-  rating Int
-
-  comment String?
-
-  booking Booking @relation(fields: [bookingId], references: [id])
-
-  customer User @relation(fields: [customerId], references: [id])
-
+  booking    Booking    @relation(fields: [bookingId], references: [id])
+  customer   User       @relation(fields: [customerId], references: [id])
   technician Technician @relation(fields: [technicianId], references: [id])
 
   createdAt DateTime @default(now())
