@@ -103,6 +103,9 @@ npm run seed
 
 # Start development server
 npm run dev
+
+#open Prisma studio
+npx prisma studio
 ```
 
 Server runs at: `http://localhost:5000`
