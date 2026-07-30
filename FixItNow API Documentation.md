@@ -1,6 +1,6 @@
 # FixItNow API Documentation
 
-**Project:** FixItNow – Your Trusted Home Service Platform  
+**Project:** FixItNow –   
 **Base URL (Live):** `https://fixitnow-backend-ashy.vercel.app/api/v1`  
 **Base URL (Local):** `http://localhost:5000/api/v1`  
 **Version:** 1.0.0  
@@ -29,7 +29,17 @@
 9. [Test Accounts](#test-accounts)
 
 ---
+---
 
+## Test Accounts
+
+| Role       | Email                     | Password        |
+|------------|---------------------------|-----------------|
+| Admin      | admin@fixitnow.com       | admin123        |
+| Customer   | customer@example.com      | customer123     |
+| Technician | technician@example.com    | technician123   |
+
+---
 ## Overview
 
 FixItNow is a home services marketplace backend API where:
