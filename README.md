@@ -222,7 +222,26 @@ npx prisma generate  # Generate Prisma Client
 
 
 ---
+---
+<!--## 📄 License--> 
 
-## 📄 License
+<!--This project is for educational purposes (Programming Hero Assignment).-->
 
-This project is for educational purposes (Programming Hero Assignment).
+---
+
+## 🎥 Demo Video
+
+A 3–5 minute walkthrough video demonstrating:
+- All 3 roles (Admin, Customer, Technician)
+- Core CRUD operations
+- Booking → Payment → Review flow
+- Error handling & validation
+
+*(Link to be added after recording)*
+
+---
+
+## 👤 Author
+
+**MD. Tahsin Islam**  
+
